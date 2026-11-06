@@ -13,7 +13,7 @@ An intervention before every impulse purchase — and every doomscroll rabbit ho
 
 Open a watched site. Chris appears. You explain yourself. Then you continue if you still want to.
 
-> **Demo GIF** — record with OpenScreen using [`docs/DEMO.md`](docs/DEMO.md), then drop the file here (e.g. `docs/assets/demo.gif`).
+<!-->> **Demo GIF** — record with OpenScreen using [`docs/DEMO.md`](docs/DEMO.md), then drop the file here (e.g. `docs/assets/demo.gif`).
 
 <!--
 ![Demo](docs/assets/demo.gif)
