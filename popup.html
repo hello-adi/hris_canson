@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hris Canson</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Michroma&display=swap");
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Michroma", monospace;
+        background-color: #0e0e0e;
+        font-size: 12px;
+        color: #888;
+        display: flex;
+        gap: 0;
+        width: 440px;
+        height: 320px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .chris-panel {
+        width: 140px;
+        flex-shrink: 0;
+        background: #0a0a0a;
+        border-right: 1px solid #1e1e1e;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .chris-panel img {
+        width: 130px;
+        display: block;
+        object-fit: contain;
+      }
+
+      .main {
+        flex: 1;
+        padding: 18px 16px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        overflow: hidden;
+        min-width: 0;
+      }
+
+      h1 {
+        font-family: "Allerta Stencil", serif;
+        font-size: 18px;
+        font-weight: 400;
+        color: #f0ece4;
+        letter-spacing: 0;
+        line-height: 1.2;
+      }
+
+      .input-row {
+        display: flex;
+        gap: 6px;
+        align-items: stretch;
+      }
+
+      #websiteInput {
+        flex: 1;
+        min-width: 0;
+        font-family: "Michroma", monospace;
+        font-size: 11px;
+        background: #161616;
+        border: 1px solid #2a2a2a;
+        color: #e0dbd0;
+        padding: 8px 10px;
+        outline: none;
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+
+      #websiteInput:focus {
+        border-color: #c0392b;
+        box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.2);
+      }
+
+      #websiteInput::placeholder {
+        color: #3a3a3a;
+      }
+
+      #categorySelect {
+        font-family: "Michroma", monospace;
+        font-size: 10px;
+        background: #161616;
+        border: 1px solid #2a2a2a;
+        color: #888;
+        padding: 8px 4px;
+        outline: none;
+        cursor: pointer;
+        width: 96px;
+        flex-shrink: 0;
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+
+      #categorySelect:focus {
+        border-color: #c0392b;
+        box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.2);
+      }
+
+      #addWebsite {
+        font-family: "Michroma", monospace;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: #c0392b;
+        color: #f0ece4;
+        border: none;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      #addWebsite:hover {
+        background: #922b21;
+      }
+
+      #addWebsite:active {
+        transform: scale(0.98);
+      }
+
+      #addWebsite:focus-visible {
+        outline: 2px solid #f0ece4;
+        outline-offset: 2px;
+      }
+
+      #addWebsite.is-success {
+        background: #1e6b3a;
+      }
+
+      .feedback {
+        min-height: 14px;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        color: #c0392b;
+        opacity: 0;
+        transition: opacity 0.2s;
+        margin-top: -6px;
+      }
+
+      .feedback.is-visible {
+        opacity: 1;
+      }
+
+      .feedback.is-ok {
+        color: #6a9a74;
+      }
+
+      .list-label {
+        font-size: 9px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #3a3a3a;
+      }
+
+      #websiteList {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        overflow-y: auto;
+        flex: 1;
+        min-height: 0;
+      }
+
+      #websiteList::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      #websiteList::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      #websiteList::-webkit-scrollbar-thumb {
+        background: #2a2a2a;
+      }
+
+      .site-item {
+        background: #161616;
+        border: 1px solid #1e1e1e;
+        padding: 7px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        animation: siteIn 0.28s ease;
+      }
+
+      @keyframes siteIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .site-url {
+        color: #e0dbd0;
+        font-size: 11px;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .site-category {
+        font-size: 9px;
+        letter-spacing: 0.08em;
+        color: #c0392b;
+        text-transform: uppercase;
+        flex-shrink: 0;
+      }
+
+      .remove-btn {
+        background: transparent;
+        border: none;
+        color: #3a3a3a;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 2px 4px;
+        line-height: 1;
+        transition: color 0.15s, background 0.15s;
+        flex-shrink: 0;
+        border-radius: 2px;
+      }
+
+      .remove-btn:hover {
+        color: #c0392b;
+      }
+
+      .remove-btn:focus-visible {
+        outline: 2px solid #c0392b;
+        outline-offset: 1px;
+        color: #c0392b;
+      }
+
+      .empty-state {
+        color: #3a3a3a;
+        font-size: 11px;
+        line-height: 1.7;
+        padding: 8px 2px 4px;
+        list-style: none;
+      }
+
+      .help-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+        font-family: "Michroma", monospace;
+        border-radius: 50%;
+        border: 1px solid #2a2a2a;
+        background: transparent;
+        color: #555;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.15s, color 0.15s, background 0.15s;
+        z-index: 5;
+      }
+
+      .help-btn:hover {
+        border-color: #c0392b;
+        color: #c0392b;
+      }
+
+      .help-btn:focus-visible {
+        outline: 2px solid #c0392b;
+        outline-offset: 2px;
+      }
+
+      .modal-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.72);
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+      }
+
+      .modal-backdrop.is-open {
+        display: flex;
+      }
+
+      .modal-content {
+        background: #111;
+        border: 1px solid #2a2a2a;
+        padding: 20px;
+        width: 280px;
+        font-size: 11px;
+        line-height: 1.75;
+        color: #888;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content h2 {
+        font-family: "Allerta Stencil", serif;
+        font-size: 16px;
+        font-weight: 400;
+        color: #f0ece4;
+        margin-bottom: 12px;
+      }
+
+      .modal-content ol {
+        margin: 0 0 4px 16px;
+        padding: 0;
+      }
+
+      .modal-content li {
+        margin-bottom: 4px;
+      }
+
+      .close-btn {
+        margin-top: 14px;
+        font-family: "Allerta Stencil", serif;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: #c0392b;
+        color: #f0ece4;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        display: block;
+        transition: background 0.15s;
+      }
+
+      .close-btn:hover {
+        background: #922b21;
+      }
+
+      .close-btn:focus-visible {
+        outline: 2px solid #f0ece4;
+        outline-offset: 2px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .site-item {
+          animation: none;
+        }
+
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chris-panel">
+      <img src="images/Chris-side.png" alt="Hris Canson mascot" />
+    </div>
+
+    <div class="main">
+      <h1>Add a website</h1>
+
+      <div class="input-row">
+        <input
+          id="websiteInput"
+          type="text"
+          placeholder="amazon.com"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Website to monitor"
+        />
+        <select id="categorySelect" aria-label="Category">
+          <option value="Shopping">Shopping</option>
+          <option value="Social">Social</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Other">Other</option>
+        </select>
+        <button id="addWebsite" type="button">Add</button>
+      </div>
+
+      <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+
+      <div class="list-label">Websites monitored</div>
+      <ul id="websiteList" aria-label="Monitored websites">
+        <li class="empty-state" id="emptyState">
+          No suspects on the watchlist.<br />
+          Chris hasn't caught anyone yet.
+        </li>
+      </ul>
+    </div>
+
+    <button
+      class="help-btn"
+      id="helpBtn"
+      type="button"
+      aria-label="How to use"
+      aria-haspopup="dialog"
+      aria-controls="helpModal"
+    >
+      ?
+    </button>
+
+    <div
+      class="modal-backdrop"
+      id="helpModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="helpTitle"
+      hidden
+    >
+      <div class="modal-content">
+        <h2 id="helpTitle">How to use</h2>
+        <ol>
+          <li>Add a website.</li>
+          <li>Visit it.</li>
+          <li>Chris intervenes.</li>
+          <li>Reconsider your life choices.</li>
+        </ol>
+        <button class="close-btn" id="closeHelp" type="button">Close</button>
+      </div>
+    </div>
+
+    <script src="shared.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
