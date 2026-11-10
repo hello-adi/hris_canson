@@ -2,6 +2,16 @@
 
 All notable changes to Hris Canson are documented here.
 
+## [2.0.0] — 2026
+
+### Changed
+
+- Refreshed the popup and intervention overlay inspired by the Dateline NBC poster
+- Added Rpatz as the mascot 
+- Updated the extension icons with the new v2 artwork
+- Added custom image backgrounds to the popup and intervention overlay
+- Added green and orange color palette, buttons, and corners to match the vibe
+
 ## [1.3.0] — 2026
 
 ### Added

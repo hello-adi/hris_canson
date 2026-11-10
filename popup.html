@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hris Canson</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Michroma&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=IBM+Plex+Sans:wght@400;500;600&family=Michroma&display=swap");
+      @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500&display=swap');
 
       * {
         box-sizing: border-box;
@@ -15,7 +16,8 @@
 
       body {
         font-family: "Michroma", monospace;
-        background-color: #0e0e0e;
+        background: #0e0e0e url("images/pop_background_.png") center / cover no-repeat;
+        border-radius: 6px;
         font-size: 12px;
         color: #888;
         display: flex;
@@ -29,11 +31,11 @@
       .chris-panel {
         width: 140px;
         flex-shrink: 0;
-        background: #0a0a0a;
-        border-right: 1px solid #1e1e1e;
+        background: rgba(10, 10, 10, 0.3);
+        border-right: 1px solid rgba(255,255,255,0.12);
         display: flex;
         align-items: flex-end;
-        justify-content: center;
+        justify-content: flex-start;
         overflow: hidden;
       }
 
@@ -54,11 +56,11 @@
       }
 
       h1 {
-        font-family: "Allerta Stencil", serif;
+        font-family: "Oswald", sans-serif;
         font-size: 18px;
-        font-weight: 400;
-        color: #f0ece4;
-        letter-spacing: 0;
+        font-weight: 350;
+        color: #d17524;
+        letter-spacing: 0.15em;
         line-height: 1.2;
       }
 
@@ -75,6 +77,7 @@
         font-size: 11px;
         background: #161616;
         border: 1px solid #2a2a2a;
+        border-radius: 6px;
         color: #e0dbd0;
         padding: 8px 10px;
         outline: none;
@@ -82,8 +85,8 @@
       }
 
       #websiteInput:focus {
-        border-color: #c0392b;
-        box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.2);
+        border-color: #d17524;
+        box-shadow: 0 0 0 2px rgba(209, 117, 36, 0.2);
       }
 
       #websiteInput::placeholder {
@@ -95,6 +98,7 @@
         font-size: 10px;
         background: #161616;
         border: 1px solid #2a2a2a;
+        border-radius: 6px;
         color: #888;
         padding: 8px 4px;
         outline: none;
@@ -105,8 +109,8 @@
       }
 
       #categorySelect:focus {
-        border-color: #c0392b;
-        box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.2);
+        border-color: #d17524;
+        box-shadow: 0 0 0 2px rgba(209, 117, 36, 0.2);
       }
 
       #addWebsite {
@@ -114,18 +118,20 @@
         font-size: 11px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        background: #c0392b;
+        background: linear-gradient(180deg, #dd8738 0%, #d17524 100%);
         color: #f0ece4;
-        border: none;
+        border: 1px solid rgba(255, 220, 174, 0.35);
+        border-radius: 6px;
         padding: 8px 12px;
         cursor: pointer;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
         transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
         white-space: nowrap;
         flex-shrink: 0;
       }
 
       #addWebsite:hover {
-        background: #922b21;
+        background: linear-gradient(180deg, #d17524 0%, #b9631e 100%);
       }
 
       #addWebsite:active {
@@ -133,7 +139,7 @@
       }
 
       #addWebsite:focus-visible {
-        outline: 2px solid #f0ece4;
+        outline: 2px solid #e39752;
         outline-offset: 2px;
       }
 
@@ -145,7 +151,7 @@
         min-height: 14px;
         font-size: 10px;
         letter-spacing: 0.04em;
-        color: #c0392b;
+        color: #d17524;
         opacity: 0;
         transition: opacity 0.2s;
         margin-top: -6px;
@@ -160,6 +166,7 @@
       }
 
       .list-label {
+        font-family: "IBM Plex Sans", sans-serif;
         font-size: 9px;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -189,8 +196,9 @@
       }
 
       .site-item {
-        background: #161616;
-        border: 1px solid #1e1e1e;
+        background: rgba(10, 10, 10, 0.76);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 6px;
         padding: 7px 10px;
         display: flex;
         justify-content: space-between;
@@ -222,7 +230,7 @@
       .site-category {
         font-size: 9px;
         letter-spacing: 0.08em;
-        color: #c0392b;
+        color: #d17524;
         text-transform: uppercase;
         flex-shrink: 0;
       }
@@ -237,17 +245,17 @@
         line-height: 1;
         transition: color 0.15s, background 0.15s;
         flex-shrink: 0;
-        border-radius: 2px;
+        border-radius: 6px;
       }
 
       .remove-btn:hover {
-        color: #c0392b;
+        color: #d17524;
       }
 
       .remove-btn:focus-visible {
-        outline: 2px solid #c0392b;
+        outline: 2px solid #d17524;
         outline-offset: 1px;
-        color: #c0392b;
+        color: #d17524;
       }
 
       .empty-state {
@@ -279,12 +287,12 @@
       }
 
       .help-btn:hover {
-        border-color: #c0392b;
-        color: #c0392b;
+        border-color: #d17524;
+        color: #d17524;
       }
 
       .help-btn:focus-visible {
-        outline: 2px solid #c0392b;
+        outline: 2px solid #d17524;
         outline-offset: 2px;
       }
 
@@ -305,6 +313,7 @@
       .modal-content {
         background: #111;
         border: 1px solid #2a2a2a;
+        border-radius: 6px;
         padding: 20px;
         width: 280px;
         font-size: 11px;
@@ -336,9 +345,10 @@
         font-size: 11px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        background: #c0392b;
+        background: linear-gradient(180deg, #dd8738 0%, #d17524 100%);
         color: #f0ece4;
-        border: none;
+        border: 1px solid rgba(255, 220, 174, 0.35);
+        border-radius: 6px;
         padding: 8px 16px;
         cursor: pointer;
         display: block;
@@ -346,7 +356,7 @@
       }
 
       .close-btn:hover {
-        background: #922b21;
+        background: linear-gradient(180deg, #d17524 0%, #b9631e 100%);
       }
 
       .close-btn:focus-visible {
@@ -367,11 +377,11 @@
   </head>
   <body>
     <div class="chris-panel">
-      <img src="images/Chris-side.png" alt="Hris Canson mascot" />
+      <img src="images/rpatz-side.png" alt="Hris Canson mascot" />
     </div>
 
     <div class="main">
-      <h1>Add a website</h1>
+      <h1>\add_a website</h1>
 
       <div class="input-row">
         <input

@@ -90,7 +90,7 @@ function injectOverlay(category) {
   const style = document.createElement("style");
   style.setAttribute("data-hc", "styles");
   style.textContent = `
-    @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Michroma&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=IBM+Plex+Sans:wght@400;500;600&family=Michroma&display=swap");
 
     #hc-overlay {
       position: fixed;
@@ -119,7 +119,9 @@ function injectOverlay(category) {
     #hc-panel {
       display: flex;
       align-items: stretch;
-      background: #0a0a0a;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #0a0a0a url("${browserAPI.runtime.getURL("images/block_lines_background.png")}") center / cover no-repeat;
       box-shadow: 0 32px 80px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.04);
       max-width: 760px;
       width: 90%;
@@ -132,16 +134,15 @@ function injectOverlay(category) {
       align-self: flex-end;
       display: flex;
       align-items: flex-end;
-      justify-content: center;
-      background: #060606;
-      border-right: 1px solid #1a1a1a;
+      justify-content: flex-start;
+      background: transparent;
     }
 
     #hc-chris-panel img {
       width: 200px;
       object-fit: contain;
       display: block;
-      filter: drop-shadow(0 0 40px rgba(255,60,0,0.2));
+      filter: drop-shadow(0 0 40px rgba(209,117,36,0.2));
     }
 
     #hc-content {
@@ -153,45 +154,42 @@ function injectOverlay(category) {
       min-width: 0;
     }
 
-    #hc-eyebrow {
-      font-family: 'Michroma', monospace;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #c0392b;
-    }
-
     #hc-headline {
       font-family: 'Allerta Stencil', serif;
       font-size: 26px;
       line-height: 1.25;
-      color: #f5f0e8;
+      color: #4caf29;
       margin: 0;
     }
 
     #hc-divider {
       width: 40px;
       height: 2px;
-      background: #c0392b;
+      background: #d17524;
     }
 
     #hc-seat-btn {
-      font-family: 'Michroma', monospace;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 12px;
+      font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: #c0392b;
+      background: linear-gradient(180deg, #dd8738 0%, #d17524 100%);
       color: #f5f0e8;
-      border: none;
+      border: 1px solid rgba(255,220,174,0.35);
+      border-radius: 6px;
       padding: 14px 28px;
       cursor: pointer;
       align-self: flex-start;
-      transition: background 0.15s, transform 0.1s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
     }
-    #hc-seat-btn:hover { background: #922b21; }
-    #hc-seat-btn:active { transform: scale(0.98); }
+    #hc-seat-btn:hover {
+      background: linear-gradient(180deg, #d17524 0%, #b9631e 100%);
+    }
+    #hc-seat-btn:active { transform: translateY(1px); }
     #hc-seat-btn:focus-visible {
-      outline: 2px solid #f5f0e8;
+      outline: 2px solid #e39752;
       outline-offset: 3px;
     }
 
@@ -243,6 +241,7 @@ function injectOverlay(category) {
       font-size: 13px;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 6px;
       color: #f5f0e8;
       padding: 14px;
       resize: none;
@@ -253,8 +252,8 @@ function injectOverlay(category) {
       transition: border-color 0.15s, box-shadow 0.15s;
     }
     #hc-confession-input:focus {
-      border-color: rgba(192, 57, 43, 0.6);
-      box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.15);
+      border-color: #d17524;
+      box-shadow: 0 0 0 2px rgba(209,117,36,0.2);
     }
     #hc-confession-input::placeholder {
       color: rgba(245,240,232,0.25);
@@ -267,7 +266,7 @@ function injectOverlay(category) {
       text-align: right;
     }
     #hc-char-counter.hc-ready {
-      color: #c0392b;
+      color: #d17524;
     }
 
     #hc-submit-btn {
@@ -275,9 +274,10 @@ function injectOverlay(category) {
       font-size: 12px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: transparent;
-      color: rgba(245,240,232,0.35);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(209,117,36,0.14);
+      color: rgba(245,240,232,0.58);
+      border: 1px solid rgba(209,117,36,0.3);
+      border-radius: 6px;
       padding: 12px 24px;
       cursor: not-allowed;
       align-self: flex-start;
@@ -285,15 +285,16 @@ function injectOverlay(category) {
     }
     #hc-submit-btn.hc-active {
       color: #f5f0e8;
-      border-color: rgba(192,57,43,0.6);
-      background: rgba(192,57,43,0.12);
+      border-color: rgba(255,220,174,0.35);
+      background: linear-gradient(180deg, #dd8738 0%, #d17524 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.18);
       cursor: pointer;
     }
     #hc-submit-btn.hc-active:hover {
-      background: rgba(192,57,43,0.25);
+      background: linear-gradient(180deg, #d17524 0%, #b9631e 100%);
     }
     #hc-submit-btn:focus-visible {
-      outline: 2px solid #c0392b;
+      outline: 2px solid #d17524;
       outline-offset: 2px;
     }
 
@@ -303,8 +304,9 @@ function injectOverlay(category) {
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       z-index: 2147483647;
-      background: #1a1a1a;
-      border: 1px solid rgba(192,57,43,0.4);
+      background: #002627;
+      border: 1px solid #d17524;
+      border-radius: 6px;
       color: #f5f0e8;
       font-family: 'Michroma', monospace;
       font-size: 13px;
@@ -324,7 +326,7 @@ function injectOverlay(category) {
       font-size: 10px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #c0392b;
+      color: #4caf29;
       margin-bottom: 6px;
     }
     #hc-toast-text {
@@ -335,7 +337,7 @@ function injectOverlay(category) {
 
     @media (max-width: 640px) {
       #hc-panel { flex-direction: column; }
-      #hc-chris-panel { width: 100%; border-right: none; border-bottom: 1px solid #1a1a1a; }
+      #hc-chris-panel { width: 100%; justify-content: center; border-right: none; border-bottom: 1px solid #1a1a1a; }
       #hc-chris-panel img { width: 120px; margin: 0 auto; }
       #hc-content { padding: 28px 22px; }
       #hc-headline { font-size: 20px; }
@@ -363,16 +365,12 @@ function injectOverlay(category) {
   const chrisPanel = document.createElement("div");
   chrisPanel.id = "hc-chris-panel";
   const chrisImg = document.createElement("img");
-  chrisImg.src = browserAPI.runtime.getURL("images/Chris-side.png");
+  chrisImg.src = browserAPI.runtime.getURL("images/rpatz-side.png");
   chrisImg.alt = "Hris Canson";
   chrisPanel.appendChild(chrisImg);
 
   const content = document.createElement("div");
   content.id = "hc-content";
-
-  const eyebrow = document.createElement("div");
-  eyebrow.id = "hc-eyebrow";
-  eyebrow.textContent = "⚠ Intervention";
 
   const headline = document.createElement("h1");
   headline.id = "hc-headline";
@@ -421,14 +419,13 @@ function injectOverlay(category) {
   peering.id = "hc-peering-chris";
   peering.setAttribute("aria-hidden", "true");
   const peerImg = document.createElement("img");
-  peerImg.src = browserAPI.runtime.getURL("images/chris-peering.png");
+  peerImg.src = browserAPI.runtime.getURL("images/rpatz_slide.png");
   peerImg.alt = "";
   peering.appendChild(peerImg);
 
   confessionBox.appendChild(fields);
   confessionBox.appendChild(peering);
 
-  content.appendChild(eyebrow);
   content.appendChild(headline);
   content.appendChild(divider);
   content.appendChild(seatBtn);
